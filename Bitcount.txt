@@ -1,0 +1,58 @@
+O Bitcount
+
+O que faremos agora? Temos diversos mapas de bits, por exemplo, um que indica os acessos do dia 25 - em que ele informa se determinado usuário foi acessado ou não. Mostraremos outro exemplo, no terminal. Desta vez, usaremos o acesso do dia 25 no mês de junho. No nosso mapa, temos registrado que o André acessou o sistema. Vamos marcá-lo com 1, com isto iremos setar o bit.
+
+
+<ip> SETBIT acesso:25-06-2015 1 1
+A Mariana também acessou, vamos setar ela também.
+
+<ip> SETBIT acesso:25-06-2015 1 1
+(integer) 0
+<ip> SETBIT acesso:25-06-2015 2 1
+O id 3 não acessou, então, marcá-lo com 0 ou não incluí-lo, seria o mesmo.
+
+<ip> SETBIT acesso:25-06-2015 1 1
+(integer) 0
+<ip> SETBIT acesso:25-06-2015 2 1
+(integer) 0
+<ip> SETBIT acesso:25-06-2015 3 0
+(integer) 0
+No dia 26, os acessos foram diferentes: os usuários 1 e 3 entraram no sistema. 27
+
+<ip> SETBIT acesso:26-06-2015 1 1
+(integer) 0
+<ip> SETBIT acesso:25-06-2015 3 1
+(integer) 0
+No dia 27, os três usuários acessaram o sistema:
+
+
+<ip> SETBIT acesso:27-06-2015 1 1
+(integer) 0
+<ip> SETBIT acesso:27-06-2015 2 1
+(integer) 0
+<ip> SETBIT acesso:27-06-2015 3 1
+(integer) 0
+Nós setamos cada bit que queríamos marcar. Observe que cada uma das chaves com as datas (por exemplo, acesso:25-06-2015) é um mapa de bits. Abaixo temos o mapa do dia 25:
+
+
+
+
+O Bitcount utiliza os dados do papo do dia 25 que setamos e conta quantos bits 
+diferentes foram marcados. Depois, ele nos informará o total. No meu cenário, o
+ Bitcount serve para informar quantos usuários distintos acessaram o site em um dia específico.
+
+
+ BITCOUNT acesso:25-06-2015
+
+ BITCOUNT acesso:26-06-2015
+
+ BITCOUNT acesso:27-06-2015
+
+BITOP AND acesso:25-e-26-06-2015
+
+
+ BITOP AND acesso:25-e-26-06-2015 acesso:25-06-2015 acesso:26-06-2015
+(integer) 1
+
+
+BITOP OR acesso:25-ou-26-06-2015 acesso:25-06-2015 acesso:26-06-2015

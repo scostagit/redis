@@ -1,0 +1,22 @@
+when we installed the redis in windows, it creates a windows service and we don´t need
+to set up a server. We only need to set up the client:
+
+redis-cli
+
+test redis:
+echo "estou no redis"
+
+creating a varible
+ SET "total_de_cursos" 105
+
+get the varible
+ GET "total_de_cursos"
+"105"
+
+see all varibles
+keys *
+
+delete key
+DEL "ultimo_usuario_que_se_logou"
+GET "ultimo_usuario_que_se_logou"
+(nil)

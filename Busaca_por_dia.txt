@@ -1,0 +1,15 @@
+Qual seria o comando necessário para obter as chaves que representam os resultados 
+dos dias 15 ou 17 de qualquer mês, de qualquer ano, da Mega-sena ou da Giga-sena?
+
+Execute o comando no seu Redis.
+
+Para obtermos o resultado dos dias 15 e 17,
+ precisamos utilizar "[]" (colchetes) com a lista de números dentro deles.
+  Para representar que podem ser quaisquer mês e ano utilizamos "??-????". 
+  Por fim, para obter os resultados da Mega-sena e Giga-sena, utilizamos 
+  o ":*sena". O comando final fica assim:
+
+KEYS resultado:1[57]-??-????:*sena
+1) "resultado:17-05-2015:megasena"
+2) "resultado:15-05-2015:gigasena"
+3) "resultado:15-04-2015:megasena

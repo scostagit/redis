@@ -1,0 +1,67 @@
+==========================================
+-- SESSAO -------------------------------
+==========================================
+
+dependendo da decisão de negócio do site
+
+Logando a sessao do usuario
+
+<ip> HSET "sessao:usuario:1675" "nome" "guilherme"
+(integer) 1
+
+<ip> HSET "sessao:usuario:1675" "total_de_produtos" "3"
+(integer) 1
+
+ HGETALL "sessao:usuario:1675"
+
+ TYPE HASH
+ Aprendemos em aulas passadas o hash, que é um dicionário de dados, 
+ e o Multiple Set, que armazena mais de uma informação. 
+
+Agora queremos armazenar mais de uma informação dentro de um dicionário,
+então usamos o Multiple Hash Set, ou "MHSET":
+
+HMSET "sessao:usuario:1675" "nome" "guilherme" "total_de_produtos" "3" "sobrenome" "silveira"
+OK
+
+<ip> HGET "sessao:usuario:1675" "nome"
+"guilherme"
+
+<ip> HGET "sessao:usuario:1675" "sobrenome"
+"silveira"
+
+ HGETALL "sessao:usuario:1675"
+
+
+ =========================================================
+ -- EXPIRE
+ =========================================================
+Agora vamos ver como fazer para que eles sejam apagados automaticamente. 
+Para isso usamos o comando "EXPIRE":
+
+<ip> EXPIRE "sessao:usuario:1675" 1800
+(integer) 1
+
+Isso significa que daqui 1800 segundos, ou 30 minutos, os dados do usuário serão apagados,
+expirados. Para sabermos quanto tempo falta para que essas informações sejam apagadas usamos o 
+comando Time Left ou "TTL":
+
+<ip> TTL "sessao:usuario:1675"
+(integer) 1680
+
+
+OBS:
+É muito comum em um site da web que toda vez que há uma requisição por parte do usuário, 
+esse contador (EXPIRE) é ativado. Ou seja, para cada clique ou página visitada, nós postergamos
+o logout do usuário.
+
+
+=========================================================
+-- POR QUE ARMAZENAR A SESSAO DO USUARIO NO REDIS?
+=========================================================
+A primeira vantagem de utilizar esse tipo de estratégia, é que as informações não precisam ser 
+compartilhadas entre os próprios servidores, mas sim no banco de dados, evitando a replicação 
+da informação nos servidores web.
+
+Uma outra vantagem, é que ao utilizar um banco de dados do tipo do Redis, o acesso a essas 
+informações acaba se tornando bastante rápido.

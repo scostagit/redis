@@ -1,0 +1,8 @@
+Atualizando os valores
+
+Para atualizar uma valor, podemos mudar o valor da chave através do comando SET:
+
+SET "total_de_respostas" 1446015
+Utilizamos o GET para conferir:
+
+GET "total_de_respostas"

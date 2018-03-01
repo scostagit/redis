@@ -1,0 +1,17 @@
+Vamos pensar agora num novo padrão de nomes de chaves.
+ O Redis já possui um que serve para criar uma estrutura 
+ nas chaves e ele é definido com ":" (dois pontos). 
+Vamos organizar os sorteios por data e por tipo de jogo:
+
+SET resultado:17-05-2015:megasena "2, 15, 18, 25, 28, 32"
+
+SET resultado:10-05-2015:megasena "4, 16, 19, 23, 28, 43"
+
+
+A importância de definir um padrão nos nomes das nossas chaves é que isso 
+facilitará no momento em que estivermos fazendo buscas. Com um padrão é bem 
+mais fácil buscar, por exemplo, os resultados da Mega-sena que ocorreram em 
+um mês específico, ou em um ano específico, ou em um intervalo de dias.
+
+Já vimos como recuperar todas as chaves através do comando KEYS *. 
+Veremos mais à frente no curso como realizar buscas mais específicas

@@ -1,0 +1,78 @@
+O "KEYS *" (com asterisco) nos retorna todas as chaves armazenadas. 
+Se quisermos filtrá-las pelo nome, basta fazer, por exemplo:
+
+<ip> KEYS "resultado*"
+1) "resultado:03-05-2015:megasena"
+2) "resultado:17-05-2015:megasena"
+3) "resultado:10-05-2015:megasena"
+4) "resultado:15-04-2015:megasena"
+5) "resultado:22-04-2015:megasena"
+
+
+O Redis traz todas as chaves que começam com "resultado". 
+Podemos refinar ainda mais a busca: queremos os resultados do mês de Maio de 2015 da Mega-Sena:
+
+<ip> KEYS "resultado:*-05-2015:megasena"
+1) "resultado:03-05-2015:megasena"
+2) "resultado:17-05-2015:megasena"
+3) "resultado:10-05-2015:megasena"
+
+Se quisermos que a lacuna seja preenchida com apenas um caractere, 
+utilizamos o "?" (ponto de interrogação):
+
+KEYS "resultado:1?-05-2015:megasena"
+1) "resultado:17-05-2015:megasena"
+2) "resultado:10-05-2015:megasena"
+
+Perceba que o "?" não funciona se ele não puder ser substituído por apenas um caractere:
+KEYS "resultado:?-05-2015:megasena"
+(empty list or set) [lista ou conjunto vazio]
+
+
+
+Pesquisando por determinado mês
+
+
+Neste capítulo vimos que podemos utilizar o caractere * para buscar a correspondência 
+de um ou mais caracteres dentro de uma chave. Portanto, se executarmos o comando 
+KEYS al*ra temos correspondência com "alra", "alura" e "aluuura", por exemplo.
+
+Que comando podemos executar para recuperarmos as chaves que correspondem aos 
+resultados de todos os sorteios da Mega-sena realizados no mês de Abril de 2015?
+ E para buscar os resultados entre o dia 01 e 09 de Maio de 2015?
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do Instrutor
+
+Para recuperar as chaves que correspondem aos resultados do mês de Abril, 
+podemos executar o seguinte comando:
+
+KEYS resultado:*-04-2015:megasena
+
+> 1) "resultado:15-04-2015:megasena"
+> 2) "resultado:22-04-2015:megasena"
+Aqui, o "*" indica que qualquer coisa depois de "resultado" e antes de "-04-2015:megasena" correspondem ao padrão.
+
+Para recuperar as chaves entre o dia 01 e 09 de Maio de 2015:
+
+KEYS resultado:0*-05-2015:megasena
+
+> 1) "resultado:03-05-2015:megasena"
+
+
+FILSTRO
+KEYS resultado:*-2015:lotomania
+
+> 1) "resultado:29-05-2015:lotomania"
+
+
+Uma opção, seria substituir o "*" por "?" para garantir o formato correto da data:
+
+KEYS resultado:??-??-2015:lotomania
+
+> 1) "resultado:29-05-2015:lotomania"
+
+
+Para recuperar todos os resultados de Maio de 2015 da Mega-sena ou Giga-sena:
+
+KEYS resultado:??-05-2015:*sena

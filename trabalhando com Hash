@@ -1,0 +1,58 @@
+"HSET":
+
+um dicionario de informações
+
+Até o momento os valores que utilizamos eram do tipo string. Neste capítulo vimos um outro tipo de dados 
+suportado pelo Redis para os valores: o hash. No lugar de armazenar apenas os valores de um resultado de
+um sorteio, vamos armazenar também a quantidade de ganhadores.
+
+Utilize o comando HSET para armazenar os seguintes conjuntos dentro da chave "resultado:24-05-2015:megasena":
+
+HSET resultado:24-05-2015:megasena "numeros" "13, 17, 19, 25, 28, 32" 
+
+
+Agora vamos armazenar para a mesma chave o número de ganhadores:
+
+HSET resultado:24-05-2015:megasena "ganhadores" 23
+
+
+Para pegar os valores armazenados através do hash usamos "HGET":
+
+<ip> HGET resultado:24-05-2015:megasena "numeros"
+"13, 17, 19, 25, 28, 32"
+
+<ip> HGET resultado:24-05-2015:megasena "ganhadores"
+"23"
+
+
+E, da mesma forma, também podemos remover um valor usando o "HDEL":
+
+<ip> HDEL resultado:24-05-2015:megasena "numeros"
+(integer) 1
+
+<ip> HGET resultado:24-05-2015:megasena "numeros"
+(nil)
+
+======================================================
+--OBSERVAÇÃO
+======================================================
+Lembre-se, para pegar os valores armazenados com HSET devemos usar sempre o HGET.
+
+
+====================================================
+-- SACADA
+====================================================
+Então o hash serve para armazenar mais de um valor numa chave, em um dicionário de dados.
+
+
+====================================================
+-- HGETALL
+====================================================
+
+Até o momento, utilizamos o comando HGET para recuperar um valor dentro de um hash. 
+Se quisermos recuperar todos os valores que existem no hash, podemos utilizar o comando HGETALL, 
+passando como parâmetro o nome da chave que está associada ao hash.
+
+Teste a utilização do comando HGETALL para recuperando a chave "resultado:05-06-2015:megasena":
+
+HGETALL "resultado:24-05-2015:megasena"

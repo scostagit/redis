@@ -1,0 +1,19 @@
+Vantagem de usar caracteres coringa (?) 
+
+No seu ponto de vista, qual a grande vantagem de usar caracteres coringa (?) 
+e os colchetes ao buscar chaves?
+
+
+
+Uma das grandes vantagens está em entender quais tipos de valores foram armazenados 
+em nosso banco de dados Redis.
+
+ Se não pudéssemos pesquisar chaves de maneira genéricas através do ? 
+ teríamos que pesquisar todos os valores possíveis para entender quais datas 
+ foram armazenadas no banco.
+
+Claro que dependendo da operação que fazemos é interessante manter outras chaves de ajuda.
+ Por exemplo, uma data mínima e máxima: armazenada:data_mais_antiga 
+ e armazenada:data_mais_recente assim poderíamos mostrar em um combo 
+ de onde até onde faz sentido a pesquisa no nosso banco.
+

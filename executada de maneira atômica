@@ -1,0 +1,28 @@
+O banco Redis por padrão não envolve as duas chamadas em um conceito de transação, 
+e cada uma delas é executada de maneira atômica (sem interferência de comandos externos) 
+por si só, mas não em conjunto. Isso quer dizer que entre um GET que retorna 4, 
+e um SET que vai alterar o valor para 5, podem ter sido feitos 10, 100, 1000 atualizações neste valor.
+
+Já os comandos INCR e DECR são atomicos por si só, sendo equivalentes a um "GET/SET/GET", 
+isto é, eles conferem o valor, aumentam ou diminuem ele e depois retornam o resultado novo.
+
+
+Dizendo que algo é verdadeiro ou falso
+
+Queremos marcar um único bit e especificar se algo é verdadeiro ou falso,
+para um valor específico - que será o Id do usuário. Então, 
+irei setar o bit do dia 25-05-2015, que os usuários de id 15, 32, 46 e 11 
+acessaram. Eles serão marcados com 1.
+
+<ip> SETBIT acesso:25-05-2015 15 1
+(integer) 0
+<ip> SETBIT acesso:25-05-2015 32 1
+(integer) 0
+<ip> SETBIT acesso:25-05-2015 46 1
+(integer) 0
+<ip> SETBIT acesso:25-05-2015 11 1
+(integer) 0
+GETBIT acesso:25-05-2015 3 0
+
+GETBIT acesso:25-05-2015 15
+GETBIT acesso:25-05-2015 3 0
