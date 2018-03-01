@@ -1,0 +1,50 @@
+Trabalhando com lista 
+
+===========================================================
+--LPUSH
+===========================================================
+L-left (esquerda)
+LPUSH ultimas_noticias  "jogador de futebol e flagado jogando Basquete"
+
+LPUSH ultimas_noticias  "Novo curso de Redis"
+
+LPUSH ultimas_noticias  "TRICOLOR bi mundial"
+
+LPUSH ultimas_noticias  "Dia feliz"
+
+
+===========================================================
+--LINDEX
+===========================================================
+consultando by index
+LINDEX ultimas_noticias 0
+"Dia feliz"
+
+LINDEX pega o elemento no index (0)
+
+
+===========================================================
+-- LLEN
+===========================================================
+pegando o tamanho da lista
+L de lista
+LEN the tamanho
+
+LLEN ultimas_noticias
+
+===========================================================
+-- LRANGE
+===========================================================
+voce pega um range das suas noticias
+
+LRANGE ultimas_noticias 1 2
+
+me traz tudo que esta na posição 1 a dois
+
+===========================================================
+-- LTRIM (aparar, cortar fora as antigas)
+===========================================================
+
+LTRIM ultimas_noticias 0 2
+
+item da linha 3 sera removido.
