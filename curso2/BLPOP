@@ -1,0 +1,16 @@
+Capítulo 3 - Busy wait e POP blocante com o BLPOP
+Vimos como implementar uma fila no Redis. Veremos nessa aula como implementar o programa que consome a fila. Um dos motivos é que ele poderá continuar dando POP nos elementos mesmo com a fila vazia, o que resulta em:
+
+LPOP fila:confirma-email
+(nil)
+
+
+BLPOP fila:confirma-email 30
+Configura o timeout para ser executado a cada 30 segundo
+Set up the timeout to be execute each 30 seconds
+
+
+BLPOP fila:confirma-email 0
+
+forever
+sem timeout

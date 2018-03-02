@@ -1,0 +1,112 @@
+Criando uma rede social
+
+Trabalhamos com conjuntos
+
+
+Os amigos do sergio são:
+Daniela
+Carlos
+Ana
+Lúcia
+
+Os amigo do Carlos são:
+Paulo
+Lúcia
+sergio~
+
+Os amigos em comum entre sergio e Carlos são:
+Lúcia
+
+===============================================
+SADD
+===============================================
+
+Para representar um conjunto (set) no Redis, criamos uma chave (relacionamentos do sergio)
+ e adicionaremos strings (amigos) a ela:
+
+SADD "relacionamentos:sergio" "daniela" "carlos" "ana" "lucia"
+(integer) 4
+
+
+Se tentarmos adicionar elementos que já pertencem ao conjunto, teremos:
+
+SADD "relacionamentos:sergio" "ana" "lucia"
+(integer) 0
+Não foram adicionados, pois uma das características dos conjuntos é que 
+não existem elementos repetidos, diferentemente da lista.
+
+=====================================
+SCARD
+=====================================
+Para visualizarmos a quantidade de elementos (cardinalidade) em um conjunto fazemos:
+
+SCARD "relacionamentos:sergio"
+(integer) 4
+
+=====================================
+SMEMBERS
+=====================================
+E para discriminar os "membros" do conjunto:
+
+SMEMBERS "relacionamentos:sergio"
+1) "lucia"
+2) "ana"
+3) "carlos"
+4) "daniela"
+
+=====================================
+SMEMBERS WITH FILTER
+=====================================
+Para descobrirmos se um elemento pertence ao conjunto:
+
+SISMEMBER "relacionamentos:sergio" "carlos"
+(integer) 1
+SISMEMBER "relacionamentos:sergio" "joao"
+(integer) 0
+
+
+O que significa que o elemento "carlos" está dentro do conjunto e o "joao" não.
+
+=====================================
+SREM
+=====================================
+Para remover um membro:
+
+SREM "relacionamentos:sergio" "lucia"
+(integer) 1
+
+
+SADD "relacionamentos:carlos" "paulo" "lucia" "sergio"
+(integer) 3
+
+=====================================
+SINTER
+=====================================
+Agora basta fazer a intercesão
+
+SINTER "relacionamentos:sergio" "relacionamentos:carlos"
+1) "lucia"
+
+
+SADD "relacionamentos:marcela" "daniela" "ana"
+(integer) 1
+
+=====================================
+SDIFF
+=====================================
+E fazer a diferença:
+
+SDIFF "relacionamentos:sergio" "relacionamentos:marcela"
+1) "carlos"
+2) "lucia"
+
+O serio é conhece o Carlos e a Lucia e marcela nao.
+
+
+SDIFF  "relacionamentos:marcela" "relacionamentos:sergio" 
+(empty list or set)
+
+Zero porque o Sergio conhece todos os amigos da marcela.
+De fato, não existe membro do conjunto da Marcela que não está no conjunto do Sergio.
+
+Represente o que representar os conjuntos, a intersecção e a diferença falam muito sobre eles.

@@ -1,0 +1,59 @@
+
+Uma utilização comum das filas, é quando desejamos executar tarefas em background, 
+para que o usuário não tenha que esperar a tarefa ser concluída e possa realizar 
+outras atividades de forma paralela. No caso de um sistema onde é necessário confirmação 
+por e-mail ou SMS, podemos executar esse envio em segundo plano e a medida que usuários 
+vão necessitando de confirmação vamos armazenando-os em uma fila, onde o primeiro que 
+chega é o primeiro que terá sua solicitação atendida.
+
+Um outro exemplo de uso de fila, é um chat de atendimento, onde a medida que os usuários 
+precisam esperar os atendentes estarem disponíveis, eles são colocados em uma fila.
+
+Vamos criar um sistema de fila de email
+teremos um tarefa que ira enfileirar, e 
+outra trafefa que ira mandar os email.sistema
+
+Let's to create a Quee email system, we will
+have a task that will add emails, and another
+task that will send the emails.
+
+//add item on right in the queue
+RPUSH "fila:confirma-email" "guilherme.silveira@alura.com.br"
+(integer) 1
+
+to check the size of queue
+LLEN "fila:confirma-email"
+
+select
+LRANGE "fila:confirma-email" 0 2
+1) "guilherme.silveira@alura.com.br"
+2) "daniela.mikyung@alura.com.br"
+3) "carlos.felicio@alura.com.br"
+
+Get the register
+LINDEX fila:confirma-email 0
+"guilherme.silveira@alura.com.br"
+
+
+remove the first item of Queue
+LTRIM fila:confirma-email 1 3
+OK
+
+
+Comando Atomico
+
+Aqui precisamos tomar muito cuidado! Se fizermos o LTRIM dessa forma, 
+corremos o risco de um cliente (no caso o de número 3) ser cadastrado 
+no meio tempo e, logo após o comando, ser excluído. Para solucionar esse
+ problema, precisamos retirá-lo da fila ao mesmo tempo que o pegarmos,
+  para não dar tempo de outro usuário se cadastrar. O comando que faz 
+  sse trabalho é o POP, se for da esquerda, LPOP:
+
+remove with safe the first item of queue
+LPOP fila:confirma-email
+
+
+Para remover e recuperar o último de uma lista, utilizamos o RPOP:
+
+> RPOP "fila:confirma-email"
+> "carlos.felicio@alura.com.br"
