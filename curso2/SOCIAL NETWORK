@@ -110,3 +110,12 @@ Zero porque o Sergio conhece todos os amigos da marcela.
 De fato, não existe membro do conjunto da Marcela que não está no conjunto do Sergio.
 
 Represente o que representar os conjuntos, a intersecção e a diferença falam muito sobre eles.
+
+=====================================
+SUNION
+=====================================
+Uma outra operação que podemos fazer com conjuntos no Redis é a união.
+ Nesta operação, o Redis irá pegar os elementos dos dois conjuntos e retornar todos eles, 
+ sem repetição.
+
+SUNION "relacionamentos:sergio" "relacionamentos:marcela"
