@@ -1,0 +1,54 @@
+ZREVRANGE pontuacoes 0 3 WITHSCORES
+1) "carlos"
+2) "65543"
+3) "guilherme"
+4) "50076"
+5) "daniela"
+6) "33786"
+7) "paulo"
+8) "8754"
+
+
+ZREVRANGE pontuacoes 0 -1 WITHSCORES
+
+
+ZREVRANGE pontuacoes -3 -1 WITHSCORES
+
+ZSCORE pontuacoes guilherme
+"50076"
+
+ZRANK pontuacoes guilherme
+(integer) 1
+
+ZREVRANK pontuacoes guilherme
+(integer) 3
+
+ZINCRBY pontuacoes 50000 guilherme
+"100076"
+
+ultimo elemento -1
+ZRANGE pontuacoes 0 -1
+1) "paulo"
+2) "daniela"
+3) "carlos"
+4) "guilherme"
+
+
+DEL pontuacoes
+
+
+ZADD pontuacoes 50000 55
+(integer) 1
+ZADD pontuacoes 30000 35
+(integer) 1
+ZADD pontuacoes 300000 65
+(integer) 1
+
+//Se chamarmos o ZRANGE:
+ZRANGE pontuacoes 0 -1
+1) "35"
+2) "55"
+3) "65"
+
+
+> ZREVRANGE pontuacoes 0 -1 WITHSCORES

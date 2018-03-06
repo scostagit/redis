@@ -1,1 +1,67 @@
 
+//Add a new item
+SET  "jogador:1" 50076
+
+//get a item
+GET "Jogador:1"
+50076
+
+//Check the type of element
+TYPE "jogador:1"
+string
+
+When you want to use another type you should
+use the command HSET that will create a element
+with type hash.
+
+//First let's go delete the element
+DEL "jogador:1"
+
+HSET "jogador:1" "nome" "Sergio"
+HSET "Jogador:1" "pontos"  50076
+
+HSET "jogador:2" "nome" "carlos"
+(integer) 1
+HSET "jogador:2" "pontos" 76564
+(integer) 1
+
+//To bring all registar from hash
+HGETALL "jogador:1"
+
+TYPE "jogador:1"
+hash
+
+//INCREAMENT in the list
+HINCRBY "jogador:1" "pontos" 10
+(integer) 50086
+
+
+//ORDER DATA. We can bring the data sorted 
+//We should create the hash with the command ZADD
+
+ZADD pontuacoes 50076 guilherme
+(integer) 1
+ZADD pontuacoes 65543 carlos
+(integer) 1
+ZADD pontuacoes 33786 daniela
+(integer) 1
+ZADD pontuacoes 8754 paulo
+(integer) 1
+
+//Check the type of ZADD hash
+TYPE pontuacoes
+zset
+
+//Grupo nao tem tamanho, mas podemos pegar a cardinalidade
+ZCARD pontuacoes
+
+
+//to see the element ordered
+ZRANGE pontuacoes 0 3
+1) "paulo"
+2) "daniela"
+3) "guilherme"
+4) "carlos"
+
+//Decresente
+ZREVRANGE pontuacoes 0 3
